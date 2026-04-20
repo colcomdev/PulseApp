@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- Import Google Icon Font & Materialize CSS -->
+    <link href="https://fonts.googleapis.com" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <style>
+        .table-container { margin-top: 50px; padding: 20px; border-radius: 8px; }
+        thead { background-color: #f5f5f5; }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="card table-container z-depth-3">
+            <h4 class="center-align" style="color: #1565c0;">Data Matrix Overview</h4>
+            
+            <table class="highlight responsive-table centered">
+                <thead>
+                    <tr>
+                        <th>User Number</th>
+                        <th>Full Name</th>
+                        <th>Suspended</th>
+                        <th>Description</th>
+                        <th>Code</th>
+                        <th>Action</th>
+                        <th>Comment</th>
+                        <th>Summary</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    {% for row in data_list %}
+                    <tr>
+                        <!-- If reading from CSV/Dict, use ['Key']. If Model, use .key -->
+                        <td><strong>{{ row.UserNumber }}</strong></td>
+                        <td>{{ row.FullName }}</td>
+                        <td>
+                            {% if row.Suspended == 1 %}
+                                <span class="new badge red" data-badge-caption="Yes"></span>
+                            {% else %}
+                                <span class="new badge green" data-badge-caption="No"></span>
+                            {% endif %}
+                        </td>
+                        <td>{{ row.Description|truncatechars:30 }}</td>
+                        <td><code>{{ row.Code }}</code></td>
+                        <td><a class="waves-effect waves-light btn-small blue">{{ row.Action }}</a></td>
+                        <td>{{ row.Comment }}</td>
+                        <td><span class="chip">{{ row.Summary }}</span></td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="8">No data found in source.</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Materialize JS -->
+    <script src="https://cdnjs.cloudflare.com"></script>
+</body>
+</html>

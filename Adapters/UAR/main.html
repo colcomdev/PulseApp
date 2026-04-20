@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>User Access Request Form</title>
+
+<style>
+body{
+    font-family: Arial, Helvetica, sans-serif;
+    background:#f4f6f9;
+    margin:0;
+    padding:0;
+}
+
+.container{
+    width:900px;
+    margin:40px auto;
+    background:white;
+    padding:30px;
+    border-radius:8px;
+    box-shadow:0 4px 10px rgba(0,0,0,0.1);
+}
+
+.header{
+    text-align:center;
+    border-bottom:3px solid #b30000;
+    padding-bottom:15px;
+    margin-bottom:25px;
+}
+
+.header h1{
+    margin:0;
+    color:#b30000;
+}
+
+.section-title{
+    margin-top:25px;
+    font-weight:bold;
+    color:#b30000;
+}
+
+.form-group{
+    margin-top:12px;
+}
+
+label{
+    font-weight:bold;
+}
+
+input, select, textarea{
+    width:100%;
+    padding:10px;
+    margin-top:5px;
+    border:1px solid #ccc;
+    border-radius:4px;
+}
+
+textarea{
+    resize:vertical;
+}
+
+.row{
+    display:flex;
+    gap:20px;
+}
+
+.row .form-group{
+    flex:1;
+}
+
+button{
+    margin-top:25px;
+    background:#b30000;
+    color:white;
+    border:none;
+    padding:12px 20px;
+    border-radius:5px;
+    cursor:pointer;
+    font-size:16px;
+}
+
+button:hover{
+    background:#800000;
+}
+
+.footer{
+    margin-top:30px;
+    font-size:12px;
+    text-align:center;
+    color:#666;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<div class="header">
+<h1>User Access Request (UAR)</h1>
+<p>IT Department – System Access Request Form</p>
+</div>
+
+<form>
+
+<div class="section-title">Requester Information</div>
+
+<div class="row">
+<div class="form-group">
+<label>Full Name</label>
+<input type="text" name="name" required>
+</div>
+
+<div class="form-group">
+<label>Employee ID</label>
+<input type="text" name="employee_id">
+</div>
+</div>
+
+<div class="row">
+<div class="form-group">
+<label>Department</label>
+<input type="text" name="department">
+</div>
+
+<div class="form-group">
+<label>Email</label>
+<input type="email" name="email">
+</div>
+</div>
+
+
+<div class="section-title">System Access Details</div>
+
+<div class="form-group">
+<label>System Requested</label>
+<select name="system">
+<option value="">Select System</option>
+<option>ERP System</option>
+<option>HR System</option>
+<option>Finance System</option>
+<option>Data Warehouse</option>
+<option>Email System</option>
+<option>Other</option>
+</select>
+</div>
+
+
+<div class="form-group">
+<label>Access Rights Required</label>
+<select name="rights">
+<option value="">Select Access Level</option>
+<option>Read Only</option>
+<option>Data Entry</option>
+<option>Modify Records</option>
+<option>Administrator</option>
+<option>Custom Role</option>
+</select>
+</div>
+
+
+<div class="form-group">
+<label>Business Justification</label>
+<textarea rows="4" name="justification" placeholder="Explain why this access is required"></textarea>
+</div>
+
+
+<div class="section-title">Supervisor Approval</div>
+
+<div class="row">
+<div class="form-group">
+<label>Supervisor Name</label>
+<input type="text" name="supervisor_name">
+</div>
+
+<div class="form-group">
+<label>Supervisor Email</label>
+<input type="email" name="supervisor_email">
+</div>
+</div>
+
+<div class="row">
+<div class="form-group">
+<label>Supervisor Decision</label>
+<select name="approval">
+<option value="">Pending</option>
+<option>Approved</option>
+<option>Rejected</option>
+</select>
+</div>
+
+<div class="form-group">
+<label>Approval Date</label>
+<input type="date" name="approval_date">
+</div>
+</div>
+
+
+<button type="submit">Submit Request</button>
+
+</form>
+
+<div class="footer">
+<p>Generated User Access Request Form | IT Governance & Security</p>
+</div>
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,243 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Colcom{% endblock %}</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+    <style>
+        :root {
+            --primary-red: #d32f2f;
+            --dark-red: #b71c1c;
+            --light-gray: #f5f5f5;
+            --text-dark: #333;
+        }
+        * { margin:0; padding:0; box-sizing:border-box; font-family:'Roboto',sans-serif; }
+        body { background:var(--light-gray); color:var(--text-dark); }
+        .navbar {
+            background:var(--primary-red);
+            color:white;
+            padding:1rem 2rem;
+            display:flex;
+            justify-content:space-between;
+            align-items:center;
+            box-shadow:0 2px 8px rgba(0,0,0,0.2);
+        }
+        .nav-links a {
+            color:white;
+            text-decoration:none;
+            margin-left:1.5rem;
+            font-weight:500;
+        }
+        .nav-links a:hover { opacity:0.8; }
+        .btn {
+            padding:0.6rem 1.5rem;
+            border:none;
+            border-radius:4px;
+            cursor:pointer;
+            font-weight:500;
+            box-shadow:0 4px 6px rgba(0,0,0,0.2);
+            transition:0.3s;
+        }
+        .btn:hover { transform:translateY(-2px); box-shadow:0 6px 12px rgba(0,0,0,0.3); }
+        .btn-white { background:white; color:var(--primary-red); }
+        footer {
+            background:var(--dark-red);
+            color:white;
+            text-align:center;
+            padding:1rem;
+            margin-top:3rem;
+        }
+
+    
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Roboto',sans-serif;
+}
+
+body{
+background:#fafafa;
+color:#333;
+}
+
+/* HERO */
+
+.hero{
+height:80vh;
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+text-align:center;
+background:linear-gradient(135deg,#b71c1c,#e53935);
+color:white;
+padding:40px;
+}
+
+.hero h1{
+font-size:3.5rem;
+font-weight:500;
+margin-bottom:20px;
+}
+
+.hero p{
+font-size:1.2rem;
+max-width:700px;
+opacity:0.9;
+margin-bottom:30px;
+}
+
+.hero button{
+background:white;
+color:#d32f2f;
+border:none;
+padding:14px 35px;
+border-radius:30px;
+font-size:16px;
+cursor:pointer;
+transition:0.3s;
+box-shadow:0 6px 15px rgba(0,0,0,0.2);
+}
+
+.hero button:hover{
+transform:translateY(-3px);
+box-shadow:0 10px 20px rgba(0,0,0,0.25);
+}
+
+/* FEATURES */
+
+.features{
+padding:70px 8%;
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+gap:30px;
+}
+
+.card{
+background:white;
+padding:35px;
+border-radius:12px;
+box-shadow:0 5px 15px rgba(0,0,0,0.1);
+transition:0.3s;
+}
+
+.card:hover{
+transform:translateY(-6px);
+box-shadow:0 15px 35px rgba(0,0,0,0.15);
+}
+
+.card-icon{
+width:60px;
+height:60px;
+border-radius:50%;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:26px;
+margin-bottom:20px;
+background:#ffebee;
+color:#d32f2f;
+}
+
+.card h3{
+margin-bottom:12px;
+font-weight:500;
+}
+
+.card p{
+font-size:14px;
+line-height:1.6;
+color:#555;
+}
+
+/* CALL TO ACTION */
+
+.cta{
+margin:80px 8%;
+background:linear-gradient(135deg,#d32f2f,#f44336);
+border-radius:15px;
+padding:60px;
+text-align:center;
+color:white;
+box-shadow:0 10px 30px rgba(0,0,0,0.2);
+}
+
+.cta h2{
+font-size:2rem;
+margin-bottom:15px;
+}
+
+.cta p{
+opacity:0.9;
+margin-bottom:25px;
+}
+
+.cta button{
+background:white;
+color:#c62828;
+border:none;
+padding:14px 30px;
+border-radius:30px;
+font-size:15px;
+cursor:pointer;
+transition:0.3s;
+}
+
+.cta button:hover{
+transform:scale(1.05);
+}
+
+/* STATS */
+
+.stats{
+padding:60px 8%;
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+text-align:center;
+gap:40px;
+}
+
+.stat h3{
+font-size:2.5rem;
+color:#d32f2f;
+margin-bottom:10px;
+}
+
+.stat p{
+color:#555;
+}
+
+    </style>
+</head>
+<body>
+
+<nav class="navbar">
+    <h1>cPulse</h1>
+    <div class="nav-links">
+        <a href="{% url 'home' %}">Home</a>
+        {% if user.is_authenticated %}
+            <a href="#">Dashboard</a>
+            
+        {% else %}
+            <a href="#">Login</a>
+            <a href="#">Sign Up</a>
+        {% endif %}
+        <a href="{% url 'colcom_ai' %}">Colcom A.I</a>
+    </div>
+</nav>
+
+{% block content %}{% endblock %}
+
+<footer>
+    <p>&copy; 2026 Colcom. All Rights Reserved.</p>
+</footer>
+
+</body>
+</html>

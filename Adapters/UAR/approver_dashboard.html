@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Approver Dashboard</title>
+
+<style>
+
+body{
+font-family:Arial, Helvetica, sans-serif;
+background:#f4f6f9;
+margin:0;
+}
+
+.header{
+background:#b30000;
+color:white;
+padding:15px;
+font-size:20px;
+}
+
+.container{
+width:1100px;
+margin:40px auto;
+background:white;
+padding:25px;
+border-radius:8px;
+box-shadow:0 4px 10px rgba(0,0,0,0.1);
+}
+
+table{
+width:100%;
+border-collapse:collapse;
+}
+
+th,td{
+padding:12px;
+border-bottom:1px solid #ddd;
+text-align:left;
+}
+
+th{
+background:#f3f3f3;
+}
+
+.status{
+padding:5px 10px;
+border-radius:5px;
+font-size:12px;
+color:white;
+}
+
+.pending{background:orange;}
+.approved{background:green;}
+.rejected{background:red;}
+
+button{
+background:#b30000;
+color:white;
+border:none;
+padding:7px 12px;
+border-radius:4px;
+cursor:pointer;
+}
+
+button:hover{
+background:#800000;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="header">
+Approver Portal – Access Requests
+</div>
+
+<div class="container">
+
+<h2>Requests Pending Your Approval</h2>
+
+<table>
+
+<tr>
+<th>Request ID</th>
+<th>Employee</th>
+<th>System</th>
+<th>Request Type</th>
+<th>Date Submitted</th>
+<th>Status</th>
+<th>Action</th>
+</tr>
+
+<tr>
+<td>REQ001</td>
+<td>John Doe</td>
+<td>ERP System</td>
+<td>New Access</td>
+<td>10 Mar 2026</td>
+<td><span class="status pending">Pending</span></td>
+<td>
+<a href="approver_details.html">
+<button>View</button>
+</a>
+</td>
+</tr>
+
+<tr>
+<td>REQ002</td>
+<td>Mary Smith</td>
+<td>Data Warehouse</td>
+<td>Modify Access</td>
+<td>09 Mar 2026</td>
+<td><span class="status pending">Pending</span></td>
+<td>
+<a href="approver_details.html">
+<button>View</button>
+</a>
+</td>
+</tr>
+
+<tr>
+<td>REQ003</td>
+<td>David Brown</td>
+<td>Finance System</td>
+<td>Remove Access</td>
+<td>08 Mar 2026</td>
+<td><span class="status approved">Approved</span></td>
+<td>
+<a href="approver_details.html">
+<button>View</button>
+</a>
+</td>
+</tr>
+
+</table>
+
+</div>
+
+</body>
+</html>

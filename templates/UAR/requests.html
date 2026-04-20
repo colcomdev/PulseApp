@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>User Access Request</title>
+
+<style>
+
+body{
+font-family: Arial, Helvetica, sans-serif;
+background:#f5f7fa;
+margin:0;
+padding:0;
+}
+
+.container{
+width:900px;
+margin:40px auto;
+background:white;
+padding:30px;
+border-radius:8px;
+box-shadow:0 5px 12px rgba(0,0,0,0.1);
+}
+
+.header{
+text-align:center;
+border-bottom:3px solid #b30000;
+padding-bottom:10px;
+margin-bottom:25px;
+}
+
+.header h1{
+margin:0;
+color:#b30000;
+}
+
+.section-title{
+margin-top:25px;
+font-weight:bold;
+color:#b30000;
+}
+
+.row{
+display:flex;
+gap:20px;
+}
+
+.form-group{
+margin-top:12px;
+flex:1;
+}
+
+label{
+font-weight:bold;
+}
+
+input,select,textarea{
+width:100%;
+padding:10px;
+margin-top:5px;
+border:1px solid #ccc;
+border-radius:4px;
+}
+
+textarea{
+resize:vertical;
+}
+
+button{
+margin-top:25px;
+background:#b30000;
+color:white;
+border:none;
+padding:12px 20px;
+border-radius:5px;
+cursor:pointer;
+font-size:15px;
+}
+
+button:hover{
+background:#7a0000;
+}
+
+.hidden{
+display:none;
+}
+
+.footer{
+margin-top:30px;
+text-align:center;
+font-size:12px;
+color:#666;
+}
+
+</style>
+
+<script>
+
+function systemChange(){
+
+let system=document.getElementById("system").value
+
+document.getElementById("erpFields").style.display="none"
+document.getElementById("dwFields").style.display="none"
+
+if(system==="ERP"){
+document.getElementById("erpFields").style.display="block"
+}
+
+if(system==="DataWarehouse"){
+document.getElementById("dwFields").style.display="block"
+}
+
+}
+
+
+function requestTypeChange(){
+
+let type=document.getElementById("request_type").value
+
+if(type==="Modify"){
+document.getElementById("modificationSection").style.display="block"
+}
+else{
+document.getElementById("modificationSection").style.display="none"
+}
+
+}
+
+</script>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<div class="header">
+<h1>User Access Request Form</h1>
+<p>IT Department – Access Management</p>
+</div>
+
+<form>
+
+<div class="section-title">Requester Information</div>
+
+<div class="row">
+
+<div class="form-group">
+<label>Full Name</label>
+<input type="text" required>
+</div>
+
+<div class="form-group">
+<label>Employee ID</label>
+<input type="text">
+</div>
+
+</div>
+
+<div class="row">
+
+<div class="form-group">
+<label>Department</label>
+<input type="text">
+</div>
+
+<div class="form-group">
+<label>Email</label>
+<input type="email">
+</div>
+
+</div>
+
+
+<div class="section-title">Access Request Details</div>
+
+<div class="row">
+
+<div class="form-group">
+<label>Request Type</label>
+<select id="request_type" onchange="requestTypeChange()">
+<option value="New">New Access</option>
+<option value="Modify">Modify Existing Access</option>
+<option value="Remove">Remove Access</option>
+</select>
+</div>
+
+<div class="form-group">
+<label>System Requested</label>
+<select id="system" onchange="systemChange()">
+<option value="">Select System</option>
+<option value="ERP">ERP System</option>
+<option value="HR">HR System</option>
+<option value="Finance">Finance System</option>
+<option value="DataWarehouse">Data Warehouse</option>
+<option value="Email">Email System</option>
+</select>
+</div>
+
+</div>
+
+
+<div class="form-group">
+<label>Rights Requested (Multiple Allowed)</label>
+<select multiple size="5">
+<option>Read Only</option>
+<option>Data Entry</option>
+<option>Modify Records</option>
+<option>Report Access</option>
+<option>Administrator</option>
+<option>Custom Role</option>
+</select>
+</div>
+
+
+<div id="modificationSection" class="hidden">
+
+<div class="section-title">Existing Access Information</div>
+
+<div class="form-group">
+<label>Current Access Level</label>
+<input type="text" placeholder="Describe current access rights">
+</div>
+
+<div class="form-group">
+<label>Requested Change</label>
+<textarea rows="3"></textarea>
+</div>
+
+</div>
+
+
+
+<div class="section-title">System Specific Information</div>
+
+
+<div id="erpFields" class="hidden">
+
+<div class="form-group">
+<label>ERP Module</label>
+<select>
+<option>Finance</option>
+<option>Procurement</option>
+<option>Inventory</option>
+<option>Sales</option>
+</select>
+</div>
+
+<div class="form-group">
+<label>Company Code</label>
+<input type="text">
+</div>
+
+</div>
+
+
+<div id="dwFields" class="hidden">
+
+<div class="form-group">
+<label>Database Environment</label>
+<select>
+<option>Production</option>
+<option>Testing</option>
+<option>Development</option>
+</select>
+</div>
+
+<div class="form-group">
+<label>Schema Access</label>
+<input type="text">
+</div>
+
+</div>
+
+
+<div class="section-title">Business Justification</div>
+
+<div class="form-group">
+<textarea rows="4" placeholder="Explain the reason access is required"></textarea>
+</div>
+
+
+
+<div class="section-title">Supervisor Approval</div>
+
+<div class="row">
+
+<div class="form-group">
+<label>Supervisor Name</label>
+<input type="text">
+</div>
+
+<div class="form-group">
+<label>Supervisor Email</label>
+<input type="email">
+</div>
+
+</div>
+
+<div class="row">
+
+<div class="form-group">
+<label>Decision</label>
+<select>
+<option>Pending</option>
+<option>Approved</option>
+<option>Rejected</option>
+</select>
+</div>
+
+<div class="form-group">
+<label>Approval Date</label>
+<input type="date">
+</div>
+
+</div>
+
+
+<button type="submit">Submit Request</button>
+
+</form>
+
+<div class="footer">
+User Access Governance | IT Security & Compliance
+</div>
+
+</div>
+
+</body>
+</html>

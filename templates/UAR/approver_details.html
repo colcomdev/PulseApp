@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Request Review</title>
+
+<style>
+
+body{
+font-family:Arial, Helvetica, sans-serif;
+background:#f4f6f9;
+margin:0;
+}
+
+.header{
+background:#b30000;
+color:white;
+padding:15px;
+font-size:20px;
+}
+
+.container{
+width:900px;
+margin:40px auto;
+background:white;
+padding:30px;
+border-radius:8px;
+box-shadow:0 4px 10px rgba(0,0,0,0.1);
+}
+
+.section-title{
+margin-top:20px;
+color:#b30000;
+font-weight:bold;
+}
+
+.field{
+margin-top:10px;
+}
+
+label{
+font-weight:bold;
+}
+
+textarea{
+width:100%;
+margin-top:10px;
+padding:10px;
+border:1px solid #ccc;
+border-radius:4px;
+}
+
+.buttons{
+margin-top:20px;
+}
+
+button{
+padding:10px 18px;
+border:none;
+border-radius:5px;
+cursor:pointer;
+font-size:14px;
+}
+
+.approve{
+background:green;
+color:white;
+}
+
+.reject{
+background:red;
+color:white;
+}
+
+.back{
+background:#777;
+color:white;
+}
+
+button:hover{
+opacity:0.9;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="header">
+Request Review
+</div>
+
+<div class="container">
+
+<h2>Access Request Details</h2>
+
+<div class="section-title">Requester Information</div>
+
+<div class="field"><label>Name:</label> John Doe</div>
+<div class="field"><label>Employee ID:</label> EMP102</div>
+<div class="field"><label>Department:</label> Finance</div>
+<div class="field"><label>Email:</label> john.doe@company.com</div>
+
+
+<div class="section-title">Access Request</div>
+
+<div class="field"><label>Request Type:</label> New Access</div>
+<div class="field"><label>System:</label> ERP System</div>
+<div class="field"><label>Rights Requested:</label> Read Only, Report Access</div>
+
+
+<div class="section-title">Business Justification</div>
+
+<p>
+User requires access to generate monthly financial reports for management review.
+</p>
+
+
+<div class="section-title">Approver Decision</div>
+
+<form>
+
+<label>Comments</label>
+<textarea rows="4" placeholder="Add comments for this request"></textarea>
+
+<div class="buttons">
+
+<button type="submit" class="approve">
+Approve
+</button>
+
+<button type="submit" class="reject">
+Reject
+</button>
+
+<a href="{% url 'request_list' %}">
+<button type="button" class="back">
+Back
+</button>
+</a>
+
+</div>
+
+</form>
+
+</div>
+
+</body>
+</html>

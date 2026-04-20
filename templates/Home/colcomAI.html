@@ -1,0 +1,46 @@
+{% extends 'Home/base.html' %}
+{% block title %}Colcom A.I | Coming Soon{% endblock %}
+
+{% block content %}
+<section style="padding:5rem 2rem; text-align:center; background:white;">
+    <h2 style="font-size:2.5rem; color:#d32f2f; margin-bottom:1rem;">Colcom A.I</h2>
+    <p style="margin-bottom:3rem;">Currently in development — Revolutionizing Workplace Efficiency</p>
+
+    <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(250px,1fr)); gap:2rem;">
+        <div class="ai-card">
+            <span class="material-icons" style="font-size:50px; color:#d32f2f;">bug_report</span>
+            <h3>Proactive IT Monitoring</h3>
+            <p>Our AI detects system errors before employees log support tickets.</p>
+        </div>
+        <div class="ai-card">
+            <span class="material-icons" style="font-size:50px; color:#d32f2f;">edit_document</span>
+            <h3>Smart Document Editing</h3>
+            <p>Automatically modify and improve company documents instantly.</p>
+        </div>
+        <div class="ai-card">
+            <span class="material-icons" style="font-size:50px; color:#d32f2f;">description</span>
+            <h3>Template Drafting</h3>
+            <p>Generate professional reports, emails, and templates in seconds.</p>
+        </div>
+    </div>
+</section>
+
+<style>
+.ai-card {
+    padding:2rem;
+    border-radius:12px;
+    box-shadow:0 4px 15px rgba(0,0,0,0.1);
+    transition:transform 0.4s ease, box-shadow 0.4s ease;
+    animation:fadeInUp 1s ease forwards;
+}
+.ai-card:hover {
+    transform:translateY(-10px);
+    box-shadow:0 10px 25px rgba(0,0,0,0.2);
+}
+@keyframes fadeInUp {
+    from { opacity:0; transform:translateY(40px); }
+    to { opacity:1; transform:translateY(0); }
+}
+</style>
+
+{% endblock %}
