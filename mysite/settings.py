@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'apps.DataMatrix',
     'apps.UAR',
     'apps.Home',
+    'crispy_forms',
 ]
 
 MIDDLEWARE = [
@@ -120,8 +121,17 @@ USE_I18N = True
 
 USE_TZ = True
 
+LOGIN_URL = '/login/'
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/6.0/howto/static-files/
 
 STATIC_URL = 'static/'
+STATICFILES_DIRS = [
+    BASE_DIR / "static",
+]
+STATIC_ROOT = BASE_DIR / "staticfiles"
+CRISPY_TEMPLATE_PACK = 'Bootstrap4'
+
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+DEFAULT_FROM_EMAIL = 'noreply@pulseapp.com'

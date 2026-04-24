@@ -1,0 +1,23 @@
+⚠ **No AI provider connected** — Evolve AI needs an AI model to generate tests.
+
+### Quick Setup Options
+
+**1. Gemma 4 (Free, Private, Local, Multimodal)**
+Google's latest open model — text, image & audio. Runs locally via Ollama.
+- Click **Switch** in the header and select **Gemma 4** for guided setup
+- Or manually: Download Ollama from https://ollama.com/download/windows, then run: `ollama pull gemma4:e4b`
+
+**2. Ollama (Free, Private, Local)**
+Your code never leaves your machine.
+- Download Ollama: https://ollama.com/download/windows
+- Then run: `ollama pull qwen2.5-coder:7b`
+- Evolve AI will detect it automatically
+
+**3. Cloud AI (API key required)**
+- **Anthropic Claude**: https://console.anthropic.com/
+- **OpenAI**: https://platform.openai.com/api-keys
+- **HuggingFace**: https://huggingface.co/settings/tokens
+
+Click **Switch** in the header to configure any provider.
+
+💡 **Windows tip:** If Ollama is installed but not detected, change `aiForge.ollamaHost` to `http://127.0.0.1:11434` in Settings.

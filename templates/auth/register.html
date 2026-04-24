@@ -1,0 +1,42 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Register</title>
+    <link rel="stylesheet" href="{% static 'auth/auth.css' %}">
+</head>
+<body>
+
+<div class="auth-container">
+    <h2>Create Account</h2>
+
+    <form method="POST">
+        {% csrf_token %}
+
+        <div class="input-box">
+            <input type="text" name="username" placeholder="Username" required>
+        </div>
+
+        <div class="input-box">
+            <input type="email" name="email" placeholder="Email" required>
+        </div>
+
+        <div class="input-box">
+            <input type="password" name="password1" placeholder="Password" required>
+        </div>
+
+        <div class="input-box">
+            <input type="password" name="password2" placeholder="Confirm Password" required>
+        </div>
+
+        <button class="btn" type="submit">Register</button>
+    </form>
+
+    <div class="switch">
+        Already have an account? <a href="{% url 'login' %}">Login</a>
+    </div>
+</div>
+
+</body>
+</html>

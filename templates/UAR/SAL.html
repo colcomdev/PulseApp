@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Security Access Log</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #1a0000, #330000);
+      color: #fff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    .container {
+      width: 95%;
+      max-width: 520px;
+      background: rgba(255, 0, 0, 0.08);
+      backdrop-filter: blur(12px);
+      border-radius: 20px;
+      padding: 25px;
+      box-shadow: 0 10px 30px rgba(255, 0, 0, 0.4);
+    }
+
+    h2 {
+      text-align: center;
+      margin-bottom: 10px;
+      color: #ff4d4d;
+    }
+
+    .subtitle {
+      text-align: center;
+      font-size: 13px;
+      margin-bottom: 20px;
+      color: #ffcccc;
+    }
+
+    .step { display: none; flex-direction: column; animation: fadeIn 0.4s ease; }
+    .step.active { display: flex; }
+
+    label { margin-bottom: 5px; font-size: 13px; }
+
+    input, select, textarea {
+      padding: 12px;
+      margin-bottom: 15px;
+      border: none;
+      border-radius: 10px;
+      background: rgba(255,255,255,0.1);
+      color: #fff;
+      outline: none;
+    }
+
+    textarea { resize: none; height: 90px; }
+
+    .buttons {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
+    button {
+      flex: 1;
+      padding: 10px;
+      border: none;
+      border-radius: 10px;
+      background: linear-gradient(135deg, #ff1a1a, #b30000);
+      color: white;
+      cursor: pointer;
+    }
+
+    button.secondary { background: #330000; }
+
+    .stepper {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 20px;
+    }
+
+    .circle {
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      background: #660000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+    }
+
+    .circle.active { background: #ff1a1a; }
+
+    .review-box {
+      background: rgba(255,255,255,0.05);
+      padding: 12px;
+      border-radius: 10px;
+      font-size: 13px;
+      line-height: 1.5;
+    }
+
+    @keyframes fadeIn {
+      from {opacity: 0; transform: translateX(10px);} 
+      to {opacity: 1; transform: translateX(0);} 
+    }
+
+    @media(max-width: 500px) {
+      h2 { font-size: 18px; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <h2>Security Access Log</h2>
+  <div class="subtitle">Record entry details for personnel & items</div>
+
+  <div class="stepper">
+    <div class="circle active">1</div>
+    <div class="circle">2</div>
+    <div class="circle">3</div>
+    <div class="circle">4</div>
+    <div class="circle">5</div>
+  </div>
+
+  <form id="form" method="POST">
+      {% csrf_token %}
+    <!-- Step 1 -->
+    <div class="step active">
+      <label>Full Name</label>
+      <input type="text" id="name" name="name" required>
+
+      <label>ID / Badge Number</label>
+      <input type="text" id="badge" name="badge" required>
+
+      <label>Item Ownership</label>
+      <select id="ownership" name="ownership" required>
+        <option value="">Select ownership</option>
+        <option value="Company Items">Company Items</option>
+        <option value="Personal/Other">Personal / Other</option>
+      </select>
+    </div>
+
+    <!-- Step 2 -->
+    <div class="step">
+      <label>Department</label>
+      <input type="text" id="department" name="department" required>
+
+      <label>Purpose of Visit</label>
+       <input type="text" id="purpose" name="purpose" required>
+    </div>
+
+    <!-- Step 3 -->
+    <div class="step">
+      <label>Items Carried</label>
+      <textarea id="items" name="items" placeholder="Laptop, tools, etc" required></textarea>
+
+      <label>Vehicle Plate (optional)</label>
+      <input type="text" id="vehicle" name="vehicle">
+    </div>
+
+    <!-- Step 4 -->
+    <div class="step">
+      <label>Security Comments</label>
+      <textarea id="comments" name="comments"></textarea>
+
+      <label>Entry Time</label>
+      <input type="datetime-local" id="time" name="entry_time"required>
+    </div>
+
+    <!-- Step 5 Review -->
+    <div class="step">
+      <div class="review-box" id="review"></div>
+    </div>
+
+    <div class="buttons">
+      <button type="button" class="secondary" onclick="prevStep()">Back</button>
+      <button type="button" onclick="nextStep()" id="nextBtn">Next</button>
+    </div>
+
+  </form>
+</div>
+
+<script>
+let current = 0;
+const steps = document.querySelectorAll('.step');
+const circles = document.querySelectorAll('.circle');
+const nextBtn = document.getElementById('nextBtn');
+
+function showStep(index) {
+  steps.forEach((step, i) => {
+    step.classList.toggle('active', i === index);
+    circles[i].classList.toggle('active', i <= index);
+  });
+
+  if(index === steps.length - 1){ populateReview(); }
+
+  nextBtn.innerText = index === steps.length - 1 ? 'Submit' : 'Next';
+}
+
+function nextStep() {
+  if (current < steps.length - 1) {
+    current++;
+    showStep(current);
+  } else {
+    document.getElementById('form').submit();
+  }
+}
+
+function prevStep() {
+  if (current > 0) {
+    current--;
+    showStep(current);
+  }
+}
+
+function populateReview(){
+  document.getElementById('review').innerHTML = `
+    <strong>Name:</strong> ${document.getElementById('name').value}<br>
+    <strong>Badge:</strong> ${document.getElementById('badge').value}<br>
+    <strong>Department:</strong> ${document.getElementById('department').value}<br>
+    <strong>Purpose:</strong> ${document.getElementById('purpose').value}<br>
+    <strong>Items:</strong> ${document.getElementById('items').value}<br>
+    <strong>Vehicle:</strong> ${document.getElementById('vehicle').value}<br>
+    <strong>Comments:</strong> ${document.getElementById('comments').value}<br>
+    <strong>Time:</strong> ${document.getElementById('time').value}
+  `;
+}
+</script>
+
+</body>
+</html>
