@@ -122,7 +122,7 @@ def security_logs(request):
         return response  # ✅ IMPORTANT
 
     # ✅ ALWAYS RETURN THIS FOR NORMAL PAGE
-    return render(request, 'security/logs.html', {
+    return render(request, 'uar/logs.html', {
         'logs': logs,
         'ownership': ownership
     })
