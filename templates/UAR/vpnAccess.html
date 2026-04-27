@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VPN Access Request</title>
+
+<style>
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: linear-gradient(135deg, #2b0000, #000000);
+    color: white;
+}
+
+/* HEADER */
+.header {
+    background: #8b0000;
+    padding: 15px 20px;
+    font-size: 20px;
+    font-weight: bold;
+    display: flex;
+    justify-content: space-between;
+}
+
+/* CONTAINER */
+.container {
+    width: 90%;
+    max-width: 900px;
+    margin: 30px auto;
+    background: rgba(0,0,0,0.7);
+    padding: 20px;
+    border: 1px solid #8b0000;
+    border-radius: 10px;
+}
+
+/* STEPPER */
+.stepper {
+    display: flex;
+    margin-bottom: 20px;
+}
+.stepper div {
+    flex: 1;
+    height: 5px;
+    margin-right: 5px;
+    background: #333;
+}
+.stepper div.active {
+    background: #8b0000;
+}
+
+/* STEPS */
+.step {
+    display: none;
+}
+.step.active {
+    display: block;
+}
+
+/* INPUTS */
+input, select, textarea {
+    width: 100%;
+    padding: 10px;
+    margin: 8px 0;
+    background: #111;
+    border: 1px solid #8b0000;
+    color: white;
+    border-radius: 5px;
+}
+
+/* BUTTONS */
+button {
+    padding: 10px 15px;
+    margin-top: 10px;
+    border: none;
+    background: #8b0000;
+    color: white;
+    cursor: pointer;
+}
+button:hover {
+    background: #b30000;
+}
+
+/* FOOTER */
+.footer {
+    margin-top: 30px;
+    padding: 15px;
+    font-size: 12px;
+    background: #111;
+    border-top: 1px solid #8b0000;
+}
+</style>
+</head>
+
+<body>
+
+<div class="header">
+    <div>VPN Access Request System</div>
+    <div>IT Security</div>
+</div>
+
+<div class="container">
+
+    <!-- STEP INDICATOR -->
+    <div class="stepper">
+        <div class="active"></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+    </div>
+
+    <!-- STEP 1: CONTACT INFO -->
+    <div class="step active">
+        <h3>Contact Information</h3>
+        <input id="name" placeholder="Name">
+        <input id="dept" placeholder="Department">
+        <input id="job" placeholder="Job Title">
+        <input id="email" placeholder="Email">
+        <button onclick="nextStep()">Next</button>
+    </div>
+
+    <!-- STEP 2: DURATION -->
+    <div class="step">
+        <h3>VPN Access Duration</h3>
+        <label>From</label>
+        <input type="date" id="fromDate">
+        <label>To</label>
+        <input type="date" id="toDate">
+
+        <button onclick="prevStep()">Back</button>
+        <button onclick="nextStep()">Next</button>
+    </div>
+
+    <!-- STEP 3: RESOURCES -->
+    <div class="step">
+        <h3>Resources Required</h3>
+        <input id="resource" placeholder="e.g Remote access to Colcom servers">
+        <textarea id="otherServices" placeholder="Other Services Description"></textarea>
+
+        <button onclick="prevStep()">Back</button>
+        <button onclick="nextStep()">Next</button>
+    </div>
+
+    <!-- STEP 4: COMPUTER INFO -->
+    <div class="step">
+        <h3>Computer Identification</h3>
+
+        <select id="owned">
+            <option>Colcom Owned</option>
+            <option>Personal Device</option>
+        </select>
+
+        <input id="pcName" placeholder="Computer Name">
+        <input id="assetTag" placeholder="Asset Tag / Serial Number">
+        <input id="makeModel" placeholder="Make and Model">
+        <input id="os" placeholder="Operating System">
+
+        <button onclick="prevStep()">Back</button>
+        <button onclick="nextStep()">Next</button>
+    </div>
+
+    <!-- STEP 5: OBLIGATIONS -->
+    <div class="step">
+        <h3>Obligations</h3>
+        <p>
+            By requesting VPN access, you agree to comply with all IT security policies,
+            including acceptable use, data protection, and monitoring regulations.
+        </p>
+
+        <button onclick="prevStep()">Back</button>
+        <button onclick="nextStep()">Next</button>
+    </div>
+
+    <!-- STEP 6: SUBMISSION -->
+    <div class="step">
+        <h3>Final Submission</h3>
+        <p>Type <b>request</b> to sign and submit your VPN access request.</p>
+        <input id="signature" placeholder="Type request">
+
+        <button onclick="prevStep()">Back</button>
+        <button onclick="submitForm()">Submit</button>
+    </div>
+
+</div>
+
+<!-- TERMS FOOTER -->
+<div class="footer">
+    Terms & Conditions: VPN access is monitored and logged. Unauthorized access is strictly prohibited.To preserve the integrity of COLCOM information assets and the corporate network, every employee who telecommutes and needs VPN access to COLCOM information technology resources (including information assets) must use COLCOM-owned and controlled equipment. Your PC uses the COLCOM network infrastructure for all traffic when you utilize the VPN. The VPN is therefore restricted to business use ONLY 
+</div>
+
+<script>
+let currentStep = 0;
+const steps = document.querySelectorAll(".step");
+const bars = document.querySelectorAll(".stepper div");
+
+function showStep(i) {
+    steps.forEach((s, idx) => s.classList.toggle("active", idx === i));
+    bars.forEach((b, idx) => b.classList.toggle("active", idx <= i));
+}
+
+function nextStep() {
+    if (currentStep < steps.length - 1) {
+        currentStep++;
+        showStep(currentStep);
+    }
+}
+
+function prevStep() {
+    if (currentStep > 0) {
+        currentStep--;
+        showStep(currentStep);
+    }
+}
+
+function submitForm() {
+    const sig = document.getElementById("signature").value;
+
+    if (sig.toLowerCase() === "request") {
+        alert("VPN Request Submitted Successfully");
+    } else {
+        alert("You must type 'request' to submit");
+    }
+}
+</script>
+
+</body>
+</html>

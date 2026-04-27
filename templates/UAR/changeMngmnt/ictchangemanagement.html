@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ICT Change Management</title>
+
+<style>
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: linear-gradient(135deg, #2b0000, #000000);
+    color: white;
+}
+
+.header {
+    background: #8b0000;
+    padding: 15px 20px;
+    font-size: 20px;
+    font-weight: bold;
+    display: flex;
+    justify-content: space-between;
+}
+
+.container {
+    width: 90%;
+    max-width: 900px;
+    margin: 30px auto;
+    background: rgba(0,0,0,0.75);
+    padding: 20px;
+    border: 1px solid #8b0000;
+    border-radius: 10px;
+}
+
+input, textarea, select {
+    width: 100%;
+    padding: 10px;
+    margin: 8px 0;
+    background: #111;
+    border: 1px solid #8b0000;
+    color: white;
+    border-radius: 5px;
+}
+
+button {
+    padding: 10px 15px;
+    margin-top: 10px;
+    border: none;
+    background: #8b0000;
+    color: white;
+    cursor: pointer;
+}
+
+button:hover {
+    background: #b30000;
+}
+
+.footer {
+    margin-top: 30px;
+    padding: 15px;
+    font-size: 12px;
+    background: #111;
+    border-top: 1px solid #8b0000;
+}
+
+h3 {
+    color: #ff4d4d;
+}
+</style>
+</head>
+
+<body>
+
+<div class="header">
+    <div>ICT Change Management</div>
+    <div>IT Governance</div>
+</div>
+
+<div class="container">
+
+    <h3>Change Request Form</h3>
+
+    <label>Name</label>
+    <input id="name" placeholder="Enter full name">
+
+    <label>Division</label>
+    <input id="division" placeholder="Enter division">
+
+    <label>Date Submitted</label>
+    <input type="date" id="dateSubmitted">
+
+    <label>Work Estimate (Hrs)</label>
+    <input id="estimate" type="number" placeholder="e.g 5">
+
+    <label>Severity</label>
+    <select id="severity">
+        <option>Low</option>
+        <option>Medium</option>
+        <option>High</option>
+        <option>Critical</option>
+    </select>
+
+    <label>Internal Service Order</label>
+    <input id="serviceOrder" placeholder="Enter service order number">
+
+    <label>Proposed Changes and Scope</label>
+    <textarea id="scope" placeholder="Describe proposed changes"></textarea>
+
+    <label>Areas/Objects to be Changed</label>
+    <textarea id="areas" placeholder="Systems, databases, applications etc."></textarea>
+
+    <label>Purpose of Change</label>
+    <textarea id="purpose" placeholder="Why is this change required?"></textarea>
+
+    <label>Changes Made</label>
+    <textarea id="changesMade" placeholder="Record implemented changes"></textarea>
+
+    <button onclick="submitForm()">Submit Request</button>
+
+</div>
+
+<div class="footer">
+    ICT Change Management process is monitored and audited. Unauthorized changes are prohibited.
+</div>
+
+<script>
+function submitForm() {
+    const data = {
+        name: document.getElementById('name').value,
+        division: document.getElementById('division').value,
+        dateSubmitted: document.getElementById('dateSubmitted').value,
+        estimate: document.getElementById('estimate').value,
+        severity: document.getElementById('severity').value,
+        serviceOrder: document.getElementById('serviceOrder').value,
+        scope: document.getElementById('scope').value,
+        areas: document.getElementById('areas').value,
+        purpose: document.getElementById('purpose').value,
+        changesMade: document.getElementById('changesMade').value
+    };
+
+    console.log("Change Request Submitted:", data);
+    alert("ICT Change Request Submitted Successfully");
+}
+</script>
+
+</body>
+</html>

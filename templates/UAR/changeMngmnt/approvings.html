@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>ICT Change Request Stepper</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+body {
+    margin: 0;
+    font-family: Arial;
+    background: linear-gradient(135deg, #2b0000, #000);
+    color: white;
+}
+
+.header {
+    background: #8b0000;
+    padding: 15px;
+    font-weight: bold;
+}
+
+.container {
+    max-width: 800px;
+    margin: 30px auto;
+    background: rgba(0,0,0,0.75);
+    padding: 20px;
+    border: 1px solid #8b0000;
+    border-radius: 10px;
+}
+
+.stepper {
+    display: flex;
+    margin-bottom: 20px;
+}
+.stepper div {
+    flex: 1;
+    height: 5px;
+    margin-right: 5px;
+    background: #333;
+}
+.stepper div.active {
+    background: #8b0000;
+}
+
+.step {
+    display: none;
+}
+.step.active {
+    display: block;
+}
+
+input, textarea, select {
+    width: 100%;
+    padding: 10px;
+    margin: 8px 0;
+    background: #111;
+    border: 1px solid #8b0000;
+    color: white;
+    border-radius: 5px;
+}
+
+button {
+    padding: 10px 15px;
+    margin-top: 10px;
+    border: none;
+    background: #8b0000;
+    color: white;
+    cursor: pointer;
+}
+
+button:hover {
+    background: #b30000;
+}
+
+.review-box {
+    background: #111;
+    padding: 15px;
+    border: 1px solid #8b0000;
+    border-radius: 6px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="header">ICT Change Request Form</div>
+
+<div class="container">
+
+    <div class="stepper">
+        <div class="active"></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+    </div>
+
+    <!-- STEP 1 -->
+    <div class="step active">
+        <h3>Basic Information</h3>
+        <input id="name" placeholder="Name">
+        <input id="division" placeholder="Division">
+        <input id="date" type="date">
+
+        <button onclick="nextStep()">Next</button>
+    </div>
+
+    <!-- STEP 2 -->
+    <div class="step">
+        <h3>Work Details</h3>
+        <input id="hours" type="number" placeholder="Work Estimate (Hrs)">
+
+        <select id="severity">
+            <option>Low</option>
+            <option>Medium</option>
+            <option>High</option>
+            <option>Critical</option>
+        </select>
+
+        <input id="serviceOrder" placeholder="Internal Service Order">
+
+        <button onclick="prevStep()">Back</button>
+        <button onclick="nextStep()">Next</button>
+    </div>
+
+    <!-- STEP 3 -->
+    <div class="step">
+        <h3>Change Details</h3>
+        <textarea id="scope" placeholder="Proposed changes and scope"></textarea>
+        <textarea id="areas" placeholder="Areas/Objects to be changed"></textarea>
+        <textarea id="purpose" placeholder="Purpose of change"></textarea>
+        <textarea id="changes" placeholder="Changes made"></textarea>
+
+        <button onclick="prevStep()">Back</button>
+        <button onclick="nextStep()">Next</button>
+    </div>
+
+    <!-- STEP 4 REVIEW -->
+    <div class="step">
+        <h3>Review Request</h3>
+
+        <div class="review-box" id="reviewBox"></div>
+
+        <p>Type <b>sign</b> to submit</p>
+        <input id="signature" placeholder="Type sign">
+
+        <button onclick="prevStep()">Back</button>
+        <button onclick="submitRequest()">Submit</button>
+    </div>
+
+</div>
+
+<script>
+let currentStep = 0;
+const steps = document.querySelectorAll(".step");
+const bars = document.querySelectorAll(".stepper div");
+
+function showStep(i) {
+    steps.forEach((s, idx) => s.classList.toggle("active", idx === i));
+    bars.forEach((b, idx) => b.classList.toggle("active", idx <= i));
+}
+
+function nextStep() {
+    if (currentStep < steps.length - 1) {
+        currentStep++;
+        if (currentStep === 3) buildReview();
+        showStep(currentStep);
+    }
+}
+
+function prevStep() {
+    if (currentStep > 0) {
+        currentStep--;
+        showStep(currentStep);
+    }
+}
+
+function buildReview() {
+    document.getElementById("reviewBox").innerHTML = `
+        <b>Name:</b> ${document.getElementById("name").value}<br>
+        <b>Division:</b> ${document.getElementById("division").value}<br>
+        <b>Date:</b> ${document.getElementById("date").value}<br>
+        <b>Hours:</b> ${document.getElementById("hours").value}<br>
+        <b>Severity:</b> ${document.getElementById("severity").value}<br>
+        <b>Service Order:</b> ${document.getElementById("serviceOrder").value}<br><br>
+        <b>Scope:</b> ${document.getElementById("scope").value}<br>
+        <b>Areas:</b> ${document.getElementById("areas").value}<br>
+        <b>Purpose:</b> ${document.getElementById("purpose").value}<br>
+        <b>Changes:</b> ${document.getElementById("changes").value}
+    `;
+}
+
+function submitRequest() {
+    const sig = document.getElementById("signature").value;
+
+    if (sig.toLowerCase() !== "sign") {
+        alert("You must type 'sign' to submit");
+        return;
+    }
+
+    const request = {
+        name: document.getElementById("name").value,
+        division: document.getElementById("division").value,
+        date: document.getElementById("date").value,
+        hours: document.getElementById("hours").value,
+        severity: document.getElementById("severity").value,
+        serviceOrder: document.getElementById("serviceOrder").value,
+        scope: document.getElementById("scope").value,
+        areas: document.getElementById("areas").value,
+        purpose: document.getElementById("purpose").value,
+        changes: document.getElementById("changes").value
+    };
+
+    let list = JSON.parse(localStorage.getItem("changeRequests") || "[]");
+    list.push(request);
+    localStorage.setItem("changeRequests", JSON.stringify(list));
+
+    alert("Request Submitted Successfully");
+    window.location.href = "index.html";
+}
+</script>
+
+</body>
+</html>

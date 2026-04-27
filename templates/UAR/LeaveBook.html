@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Leave Application</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+body {
+    margin: 0;
+    font-family: Arial;
+    background: linear-gradient(135deg, #2b0000, #000);
+    color: white;
+}
+
+.header {
+    background: #8b0000;
+    padding: 15px;
+    font-weight: bold;
+    font-size: 18px;
+}
+
+.container {
+    max-width: 850px;
+    margin: 30px auto;
+    background: rgba(0,0,0,0.8);
+    padding: 20px;
+    border: 1px solid #8b0000;
+    border-radius: 10px;
+}
+
+/* STEPPER */
+.stepper {
+    display: flex;
+    margin-bottom: 20px;
+}
+.stepper div {
+    flex: 1;
+    height: 5px;
+    margin-right: 5px;
+    background: #333;
+}
+.stepper div.active {
+    background: #8b0000;
+}
+
+/* STEPS */
+.step { display: none; }
+.step.active { display: block; }
+
+input, textarea, select {
+    width: 100%;
+    padding: 10px;
+    margin: 8px 0;
+    background: #111;
+    border: 1px solid #8b0000;
+    color: white;
+    border-radius: 5px;
+}
+
+button {
+    padding: 10px 15px;
+    margin-top: 10px;
+    border: none;
+    background: #8b0000;
+    color: white;
+    cursor: pointer;
+}
+button:hover { background: #b30000; }
+
+.review-box {
+    background: #111;
+    padding: 15px;
+    border: 1px solid #8b0000;
+    border-radius: 6px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="header">COLCOM FOODS - Leave Application</div>
+
+<div class="container">
+
+<div class="stepper">
+    <div class="active"></div>
+    <div></div>
+    <div></div>
+    <div></div>
+</div>
+
+<!-- STEP 1 -->
+<div class="step active">
+    <h3>Employee Information</h3>
+    <input id="empNumber" placeholder="Employee Number">
+    <input id="initials" placeholder="Initials">
+    <input id="surname" placeholder="Surname">
+    <input id="division" placeholder="Division">
+    <input id="department" placeholder="Department">
+
+    <button onclick="next()">Next</button>
+</div>
+
+<!-- STEP 2 -->
+<div class="step">
+    <h3>Leave Details</h3>
+
+    <label>Leave Type</label>
+    <select id="leaveType">
+        <option>Annual</option>
+        <option>Sick</option>
+        <option>Maternity</option>
+        <option>Compassionate</option>
+        <option>Other</option>
+    </select>
+
+    <input id="otherType" placeholder="If Other, specify">
+
+    <label>From</label>
+    <input type="date" id="fromDate">
+
+    <label>To</label>
+    <input type="date" id="toDate">
+
+    <input id="days" type="number" placeholder="Number of Days">
+
+    <button onclick="prev()">Back</button>
+    <button onclick="next()">Next</button>
+</div>
+
+<!-- STEP 3 -->
+<div class="step">
+    <h3>Additional Information</h3>
+
+    <textarea id="reason" placeholder="Reason for Application"></textarea>
+
+    <label>Salary Advance Needed?</label>
+    <select id="advance">
+        <option>No</option>
+        <option>Yes</option>
+    </select>
+
+    <button onclick="prev()">Back</button>
+    <button onclick="next()">Next</button>
+</div>
+
+<!-- STEP 4 REVIEW -->
+<div class="step">
+    <h3>Review & Submit</h3>
+
+    <div id="review" class="review-box"></div>
+
+    <p>Type <b>sign</b> to submit</p>
+    <input id="signature" placeholder="Type sign">
+
+    <button onclick="prev()">Back</button>
+    <button onclick="submitForm()">Submit</button>
+</div>
+
+</div>
+
+<script>
+let step = 0;
+const steps = document.querySelectorAll(".step");
+const bars = document.querySelectorAll(".stepper div");
+
+function show(i){
+    steps.forEach((s,idx)=>s.classList.toggle("active", idx===i));
+    bars.forEach((b,idx)=>b.classList.toggle("active", idx<=i));
+}
+
+function next(){
+    if(step < steps.length-1){
+        step++;
+        if(step===3) buildReview();
+        show(step);
+    }
+}
+
+function prev(){
+    if(step>0){
+        step--;
+        show(step);
+    }
+}
+
+function buildReview(){
+    document.getElementById("review").innerHTML = `
+        <b>Employee No:</b> ${empNumber.value}<br>
+        <b>Name:</b> ${initials.value} ${surname.value}<br>
+        <b>Division:</b> ${division.value}<br>
+        <b>Department:</b> ${department.value}<br><br>
+
+        <b>Leave Type:</b> ${leaveType.value}<br>
+        <b>From:</b> ${fromDate.value}<br>
+        <b>To:</b> ${toDate.value}<br>
+        <b>Days:</b> ${days.value}<br><br>
+
+        <b>Reason:</b> ${reason.value}<br>
+        <b>Salary Advance:</b> ${advance.value}
+    `;
+}
+
+function submitForm(){
+    if(signature.value.toLowerCase() !== "sign"){
+        alert("You must type 'sign'");
+        return;
+    }
+
+    const leaveRequest = {
+        empNumber: empNumber.value,
+        initials: initials.value,
+        surname: surname.value,
+        division: division.value,
+        department: department.value,
+        leaveType: leaveType.value,
+        from: fromDate.value,
+        to: toDate.value,
+        days: days.value,
+        reason: reason.value,
+        advance: advance.value
+    };
+
+    let list = JSON.parse(localStorage.getItem("leaveRequests") || "[]");
+    list.push(leaveRequest);
+    localStorage.setItem("leaveRequests", JSON.stringify(list));
+
+    alert("Leave Request Submitted");
+}
+</script>
+
+</body>
+</html>

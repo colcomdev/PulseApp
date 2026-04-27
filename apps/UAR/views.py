@@ -4,6 +4,7 @@ from .models import AccessRequest, UserProfile, SecurityLog
 from .forms import RequestForm
 from .services import process_approval
 from .forms import SecurityLogForm
+from django.http import HttpResponse
 
 # views.py
 
@@ -39,7 +40,7 @@ def create_request(request):
         obj.save()
         return redirect("dashboard")
 
-    return render(request, "dashboard/create_request.html", {"form": form})
+    return render(request, "uar/create_request.html", {"form": form})
 
 
 @login_required
@@ -75,7 +76,7 @@ def security_entry(request):
         form = SecurityLogForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('success')  # create a success page
+            return redirect('logs')  # create a success page
     else:
         form = SecurityLogForm()
 
@@ -116,8 +117,13 @@ def security_logs(request):
             content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
         )
         response['Content-Disposition'] = 'attachment; filename=security_logs.xlsx'
+        # Convert all timezone-aware datetime columns to timezone-naive
+        for col in df.select_dtypes(['datetime', 'datetimetz']).columns:
+            df[col] = df[col].dt.tz_localize(None)
 
+        # Now export will work
         df.to_excel(response, index=False)
+
 
         return response  # ✅ IMPORTANT
 
